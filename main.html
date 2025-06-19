@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Dynamic Table Creator</title>
   <style>
     table {
@@ -28,26 +28,29 @@
 
   <script>
     function createTable() {
-      // Prompt for rows
-      const rn = prompt("Input number of rows");
-      // Prompt for columns
-      const cn = prompt("Input number of columns");
+      // Prompt for number of rows and trim input
+      const rn = prompt("Input number of rows")?.trim();
+      // Prompt for number of columns and trim input
+      const cn = prompt("Input number of columns")?.trim();
 
-      // Convert to numbers
-      const rows = parseInt(rn);
-      const cols = parseInt(cn);
+      // Convert inputs to integers
+      const rows = parseInt(rn, 10);
+      const cols = parseInt(cn, 10);
 
-      // Validate input
-      if (isNaN(rows) || isNaN(cols) || rows <= 0 || cols <= 0) {
+      // Validate inputs are positive integers
+      if (
+        isNaN(rows) || isNaN(cols) || 
+        rows <= 0 || cols <= 0
+      ) {
         alert("Please enter valid positive numbers for rows and columns.");
         return;
       }
 
-      // Reference to table
+      // Reference the table and clear previous content
       const table = document.getElementById("myTable");
-      table.innerHTML = ""; // Clear previous content
+      table.innerHTML = "";
 
-      // Create table rows and cells
+      // Create table rows and columns
       for (let i = 0; i < rows; i++) {
         const tr = document.createElement("tr");
         for (let j = 0; j < cols; j++) {
