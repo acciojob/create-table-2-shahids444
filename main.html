@@ -1,25 +1,64 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Table Creator</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    td, th {
+      border: 1px solid #000;
+      padding: 8px 12px;
+      text-align: center;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
 
-<html>
+  <h2>Dynamic Table Generator</h2>
+  <button onclick="createTable()">Create the table</button>
+  <table id="myTable"></table>
 
-	<head>
-		<meta charset=utf-8 /> 
-		<title>Create a table</title> 
-		<style type="text/css"> 
-			body {margin: 30px;} 	
-		</style>
-		<link rel="stylesheet" href="styles.css">
-	</head>
+  <script>
+    function createTable() {
+      // Prompt for rows
+      const rn = prompt("Input number of rows");
+      // Prompt for columns
+      const cn = prompt("Input number of columns");
 
-	<body>
-		<table id="myTable" border="1"> 
-		</table>
-		<form> 
-			<input type="button" onclick="createTable()" value="Create the table"> 
-		</form>
-		<script type="text/javascript" src="./script.js">
-	</script>
+      // Convert to numbers
+      const rows = parseInt(rn);
+      const cols = parseInt(cn);
 
-	</body>
+      // Validate input
+      if (isNaN(rows) || isNaN(cols) || rows <= 0 || cols <= 0) {
+        alert("Please enter valid positive numbers for rows and columns.");
+        return;
+      }
 
+      // Reference to table
+      const table = document.getElementById("myTable");
+      table.innerHTML = ""; // Clear previous content
+
+      // Create table rows and cells
+      for (let i = 0; i < rows; i++) {
+        const tr = document.createElement("tr");
+        for (let j = 0; j < cols; j++) {
+          const td = document.createElement("td");
+          td.textContent = `Row-${i} Column-${j}`;
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      }
+    }
+  </script>
+
+</body>
 </html>
