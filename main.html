@@ -1,67 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Dynamic Table Creator</title>
-  <style>
-    table {
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    td, th {
-      border: 1px solid #000;
-      padding: 8px 12px;
-      text-align: center;
-    }
-    button {
-      padding: 8px 16px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create Table 2</title>
+    <style>
+        table, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
 
-  <h2>Dynamic Table Generator</h2>
-  <button onclick="createTable()">Create the table</button>
-  <table id="myTable"></table>
+    <button onclick="createTable()">Create the table</button>
 
-  <script>
-    function createTable() {
-      // Prompt for number of rows and trim input
-      const rn = prompt("Input number of rows")?.trim();
-      // Prompt for number of columns and trim input
-      const cn = prompt("Input number of columns")?.trim();
+    <br /><br />
 
-      // Convert inputs to integers
-      const rows = parseInt(rn, 10);
-      const cols = parseInt(cn, 10);
+    <table id="myTable"></table>
 
-      // Validate inputs are positive integers
-      if (
-        isNaN(rows) || isNaN(cols) || 
-        rows <= 0 || cols <= 0
-      ) {
-        alert("Please enter valid positive numbers for rows and columns.");
-        return;
-      }
+    <script>
+        function createTable() {
+            const table = document.getElementById("myTable");
+            table.innerHTML = "";
 
-      // Reference the table and clear previous content
-      const table = document.getElementById("myTable");
-      table.innerHTML = "";
+            let rn = prompt("Input number of rows");
+            if (rn === null) return;
+            rn = rn.trim();
+            if (!/^\d+$/.test(rn) || Number(rn) <= 0) {
+                alert("Please enter a positive number for rows.");
+                return;
+            }
 
-      // Create table rows and columns
-      for (let i = 0; i < rows; i++) {
-        const tr = document.createElement("tr");
-        for (let j = 0; j < cols; j++) {
-          const td = document.createElement("td");
-          td.textContent = `Row-${i} Column-${j}`;
-          tr.appendChild(td);
+            let cn = prompt("Input number of columns");
+            if (cn === null) return;
+            cn = cn.trim();
+            if (!/^\d+$/.test(cn) || Number(cn) <= 0) {
+                alert("Please enter a positive number for columns.");
+                return;
+            }
+
+            rn = Number(rn);
+            cn = Number(cn);
+
+            for (let i = 0; i < rn; i++) {
+                const row = document.createElement("tr");
+                for (let j = 0; j < cn; j++) {
+                    const cell = document.createElement("td");
+                    cell.textContent = `Row-${i} Column-${j}`;
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
         }
-        table.appendChild(tr);
-      }
-    }
-  </script>
+    </script>
 
 </body>
 </html>
