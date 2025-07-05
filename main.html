@@ -1,172 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Table Creator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .button-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: #0056b3;
-        }
-        
-        .table-container {
-            overflow-x: auto;
-            margin-top: 20px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0 auto;
-        }
-        
-        td {
-            border: 2px solid #333;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            background-color: #f8f9fa;
-            min-width: 120px;
-        }
-        
-        td:hover {
-            background-color: #e9ecef;
-        }
-        
-        .instructions {
-            background-color: #e3f2fd;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            border-left: 4px solid #2196f3;
-        }
-        
-        .instructions h3 {
-            margin-top: 0;
-            color: #1976d2;
-        }
-        
-        .instructions ul {
-            margin-bottom: 0;
-        }
-        
-        .instructions li {
-            margin-bottom: 5px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Dynamic Table Creator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    input[type="button"] {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    input[type="button"]:hover {
+      background-color: #0056b3;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+    }
+
+    td {
+      border: 2px solid #333;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      background-color: #f8f9fa;
+      min-width: 120px;
+    }
+
+    td:hover {
+      background-color: #e9ecef;
+    }
+
+    .instructions {
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      border-left: 4px solid #2196f3;
+    }
+
+    .instructions h3 {
+      margin-top: 0;
+      color: #1976d2;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Dynamic Table Creator</h1>
-        
-        <div class="instructions">
-            <h3>Instructions:</h3>
-            <ul>
-                <li>Click the "Create the table" button</li>
-                <li>Enter the number of rows when prompted</li>
-                <li>Enter the number of columns when prompted</li>
-                <li>The table will be generated with cells labeled "Row-i Column-j"</li>
-                <li>Only positive numbers are accepted</li>
-            </ul>
-        </div>
-        
-        <div class="button-container">
-            <button onclick="createTable()">Create the table</button>
-        </div>
-        
-        <div class="table-container">
-            <table id="myTable"></table>
-        </div>
+  <div class="container">
+    <h1>Dynamic Table Creator</h1>
+
+    <div class="instructions">
+      <h3>Instructions:</h3>
+      <ul>
+        <li>Click the "Create the table" button</li>
+        <li>Enter the number of rows when prompted</li>
+        <li>Enter the number of columns when prompted</li>
+        <li>The table will be generated with cells labeled "Row-i Column-j"</li>
+        <li>Only positive numbers are accepted</li>
+      </ul>
     </div>
 
-    <script>
-        function createTable() {
-            // Get user input for number of rows
-            const rowsInput = prompt("Input number of rows");
-            
-            // Get user input for number of columns
-            const columnsInput = prompt("Input number of columns");
-            
-            // Convert inputs to numbers
-            const rn = parseInt(rowsInput);
-            const cn = parseInt(columnsInput);
-            
-            // Validate inputs
-            // Check if inputs are valid numbers
-            if (isNaN(rn) || isNaN(cn)) {
-                // Ignore invalid input and don't create table
-                return;
-            }
-            
-            // Check if inputs are positive (greater than 0)
-            if (rn <= 0 || cn <= 0) {
-                alert("Please enter positive numbers greater than 0");
-                return;
-            }
-            
-            // Get the table element
-            const table = document.getElementById("myTable");
-            
-            // Clear any existing table content
-            table.innerHTML = "";
-            
-            // Create the table dynamically
-            for (let i = 0; i < rn; i++) {
-                // Create a new row
-                const row = document.createElement("tr");
-                
-                for (let j = 0; j < cn; j++) {
-                    // Create a new cell
-                    const cell = document.createElement("td");
-                    
-                    // Set cell content with 0-based indices
-                    cell.textContent = `Row-${i} Column-${j}`;
-                    
-                    // Append cell to row
-                    row.appendChild(cell);
-                }
-                
-                // Append row to table
-                table.appendChild(row);
-            }
+    <div class="button-container">
+      <!-- ✅ Cypress expects this element -->
+      <input type="button" value="Create the table" onclick="createTable()" />
+    </div>
+
+    <div class="table-container">
+      <table id="myTable"></table>
+    </div>
+  </div>
+
+  <script>
+    function createTable() {
+      const rowsInput = prompt("Input number of rows");
+      const columnsInput = prompt("Input number of columns");
+
+      const rn = parseInt(rowsInput);
+      const cn = parseInt(columnsInput);
+
+      if (isNaN(rn) || isNaN(cn)) return;
+      if (rn <= 0 || cn <= 0) {
+        alert("Please enter positive numbers greater than 0");
+        return;
+      }
+
+      const table = document.getElementById("myTable");
+      table.innerHTML = "";
+
+      for (let i = 0; i < rn; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < cn; j++) {
+          const cell = document.createElement("td");
+          cell.textContent = `Row-${i} Column-${j}`;
+          row.appendChild(cell);
         }
-    </script>
+        table.appendChild(row);
+      }
+    }
+  </script>
 </body>
 </html>
